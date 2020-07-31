@@ -3,11 +3,11 @@ from random import randint
 import copy
 
 class SudNum:
-    def __init__(self,num):
+    def __init__(self, num):
         self.num = num
         self.grid = -1
 
-def getgrid(r,c):
+def getgrid(r, c):
 
     # tests to determine what block of the grid the number is located in, based on row and column values
     # top three grids are 0-2 left to right, then 3-5, then 6-8
@@ -30,7 +30,7 @@ def getgrid(r,c):
     return g
 
 
-def validnum(t,b,r,c):
+def validnum(t, b, r, c):
     valid = True
     b[r][c].grid = t.grid
 
@@ -55,7 +55,7 @@ def createboard(b):
 
     while row < 9:
         failed = False
-        numbers = [1,2,3,4,5,6,7,8,9]
+        numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
         for col in range(9):
             valid = False
@@ -66,10 +66,10 @@ def createboard(b):
 
             temp.num = random.choice(numbers)
             numbers.remove(temp.num)
-            temp.grid = getgrid(row,col)
+            temp.grid = getgrid(row, col)
 
             while not valid:
-                if validnum(temp,b,row,col):
+                if validnum(temp, b, row, col):
                     b[row][col].num = temp.num
                     valid = True
                 else:
@@ -101,11 +101,11 @@ def createboard(b):
     # TODO: add Difficulty Settings
     solution = copy.deepcopy(b)
     for x in range(24):
-        rowindex = randint(0,8)
-        colindex = randint(0,8)
+        rowindex = randint(0, 8)
+        colindex = randint(0, 8)
         while b[rowindex][colindex].num == "_" and b[8-rowindex][8-colindex].num == "_":
-            rowindex = randint(0,8)
-            colindex = randint(0,8)
+            rowindex = randint(0, 8)
+            colindex = randint(0, 8)
 
         # Remove symmetrically to create common Sudoku-like configurations
 
@@ -158,15 +158,15 @@ board = [
 sol = createboard(board)
 printboard(board,1)
 
-ans = input("Print to Text File? (Y/N): ").lower()
+ans = input("Print to Text File? (Y|N): ").lower()
 if ans == "y":
-    (printboard(board,0))
+    (printboard(board, 0))
 else:
    pass
 
 ans = input("Print Solution To Screen? (Y|N): ").lower()
 if ans == "y":
-    printboard(sol,1)
+    printboard(sol, 1)
 else:
     pass
 
