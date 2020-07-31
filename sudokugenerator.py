@@ -126,10 +126,13 @@ def printboard(b,v):
             str1 = str1 + str(b[r][c].num) + "  "
         str1 = str1 + "|\n"
     str1 = str1 + line
-    if (v):
+    if (v == 1):
        print(str1)
     else:
-        f = open("sudoku.txt", "a")
+        if (v == 0):
+            f = open("sudoku.txt", "a")
+        else:
+            f = open("sudokuAnswers.txt", "a")
         f.write(str1)
         f.close()
 
@@ -169,4 +172,4 @@ else:
 
 ans = input("Print Solution To Text File? (Y|N): ").lower()
 if ans == "y":
-    printboard(sol,0)
+    printboard(sol,2)
