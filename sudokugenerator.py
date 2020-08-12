@@ -142,34 +142,40 @@ def printboard(b,v):
 # Main Function
 
 # TODO: put board into a function to make a blank board generator?  Sudoku class with getblank as method?
+play = True
+while play:
+    board = [
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
+        [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)]
+        ]
 
-board = [
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
-    [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)]
-    ]
+    sol = createboard(board)
+    printboard(board,1)
 
-sol = createboard(board)
-printboard(board,1)
+    ans = input("Print to Text File? (Y|N): ").lower()
+    if ans == "y":
+        (printboard(board, 0))
+    else:
+       pass
 
-ans = input("Print to Text File? (Y|N): ").lower()
-if ans == "y":
-    (printboard(board, 0))
-else:
-   pass
+    ans = input("Print Solution To Screen? (Y|N): ").lower()
+    if ans == "y":
+        printboard(sol, 1)
+    else:
+        pass
 
-ans = input("Print Solution To Screen? (Y|N): ").lower()
-if ans == "y":
-    printboard(sol, 1)
-else:
-    pass
+    ans = input("Print Solution To Text File? (Y|N): ").lower()
+    if ans == "y":
+        printboard(sol,2)
 
-ans = input("Print Solution To Text File? (Y|N): ").lower()
-if ans == "y":
-    printboard(sol,2)
+    ans = input("Would you like another puzzle? (Y|N): ").lower()
+    if ans != "y":
+        print("Thanks for playing!")
+        play = False
