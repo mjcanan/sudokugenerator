@@ -2,13 +2,14 @@ import random
 from random import randint
 import copy
 
+
 class SudNum:
     def __init__(self, num):
         self.num = num
         self.grid = -1
 
-def getgrid(r, c):
 
+def getgrid(r, c):
     # tests to determine what block of the grid the number is located in, based on row and column values
     # top three grids are 0-2 left to right, then 3-5, then 6-8
     # TODO: optimize this test
@@ -51,7 +52,7 @@ def validnum(t, b, r, c):
 def createboard(b):
     row = 0
 
-    #.................GENERATE A COMPLETE BOARD....................#
+    # .................GENERATE A COMPLETE BOARD....................#
 
     while row < 9:
         failed = False
@@ -96,38 +97,50 @@ def createboard(b):
                 break
         row = row + 1
 
-    #....................REMOVE NUMBERS FROM BOARD...................#
+    # ...............REMOVE NUMBERS FROM BOARD...............#
 
-    # TODO: add Difficulty Settings
     solution = copy.deepcopy(b)
-    for x in range(24):
+
+    # Choose Difficulty Setting
+
+    difficulty = -1
+    while difficulty not in range(0, 5):
+        try:
+            difficulty = int(input("--Choose a difficulty level--\n"
+                                   "Very Easy (0), Easy (1), Medium (2), Hard (3) or Extreme (4): "))
+        except ValueError:
+            print("Usage: Enter 0, 1, 2, 3 or 4 to select difficulty.")
+
+    # Remove 48 to 64 numbers depending on difficulty setting
+
+    for x in range(24 + (2 * difficulty)):
         rowindex = randint(0, 8)
         colindex = randint(0, 8)
-        while b[rowindex][colindex].num == "_" and b[8-rowindex][8-colindex].num == "_":
+        while b[rowindex][colindex].num == "_" and b[8 - rowindex][8 - colindex].num == "_":
             rowindex = randint(0, 8)
             colindex = randint(0, 8)
 
         # Remove symmetrically to create common Sudoku-like configurations
 
         b[rowindex][colindex] = SudNum("_")
-        b[8-rowindex][8-colindex] = SudNum("_")
-        x = x + 1
+        b[8 - rowindex][8 - colindex] = SudNum("_")
     return solution
 
-def printboard(b,v):
+
+def printboard(b, v):
     str1 = "\n"
     line = " --------------------------------\n"
     for r in range(9):
         if r % 3 == 0:
             str1 = str1 + line
         for c in range(9):
-            if c%3 == 0:
+            if c % 3 == 0:
                 str1 = str1 + "| "
             str1 = str1 + str(b[r][c].num) + "  "
         str1 = str1 + "|\n"
     str1 = str1 + line
     if (v == 1):
-       print(str1)
+        print(str1)
     else:
         if (v == 0):
             f = open("sudoku.txt", "a")
@@ -135,8 +148,6 @@ def printboard(b,v):
             f = open("sudokuAnswers.txt", "a")
         f.write(str1)
         f.close()
-
-
 
 
 # Main Function
@@ -154,26 +165,22 @@ while play:
         [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
         [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)],
         [SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0), SudNum(0)]
-        ]
+    ]
 
     sol = createboard(board)
-    printboard(board,1)
+    printboard(board, 1)
 
     ans = input("Print to Text File? (Y|N): ").lower()
     if ans == "y":
         (printboard(board, 0))
-    else:
-       pass
 
     ans = input("Print Solution To Screen? (Y|N): ").lower()
     if ans == "y":
         printboard(sol, 1)
-    else:
-        pass
 
     ans = input("Print Solution To Text File? (Y|N): ").lower()
     if ans == "y":
-        printboard(sol,2)
+        printboard(sol, 2)
 
     ans = input("Would you like another puzzle? (Y|N): ").lower()
     if ans != "y":
